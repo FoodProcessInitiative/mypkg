@@ -1,0 +1,2 @@
+# mypkg
+for pip install

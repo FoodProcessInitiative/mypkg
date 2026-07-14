@@ -1,23 +1,11 @@
 # mypkg
 for pip install
 
-Copyright (c) 2026 Osaka Public University,
+## License / Usage
+本リポジトリのコードの著作権は
+Osaka Metripolitan University,
 ACESYSTEM Laboratory of Food Process Initiative (FPI)
-
-All rights reserved.
-
-This software is the property of the above laboratory.
-Any use, reproduction, modification, or distribution of this software
-requires prior written permission.
-
-If you wish to use this software, please contact:
-Email: yasushi.nakata(at)omu.ac.jp
-(Please replace "(at)" with "＠" when sending email.)
-
-本ソフトウェアは、上記研究室の著作物です。
-本ソフトウェアを使用、複製、改変、配布する場合は、
-書面による事前の許可が必要です。
-
-本ソフトウェアの使用を希望される場合は、下記までご連絡ください。
+にあります。
+利用を希望される場合は、事前に以下のメールアドレスへご連絡ください。
 E-mail: yasushi.nakata(at)omu.ac.jp
 （メール送信時は "(at)" を "＠" に置き換えてください。）

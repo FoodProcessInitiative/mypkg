@@ -3,7 +3,7 @@ for pip install
 
 ## License / Usage
 本リポジトリのコードの著作権は
-Osaka Metripolitan University,
+Osaka Metropolitan University,,
 ACESYSTEM Laboratory of Food Process Initiative (FPI)
 にあります。
 利用を希望される場合は、事前に以下のメールアドレスへご連絡ください。

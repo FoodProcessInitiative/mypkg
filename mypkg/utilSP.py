@@ -40,7 +40,7 @@ def p_pick(npa,ndiv=100,thrddiv=10):
     #ndiv=100
     lnpa = len(npa)
     b = int(lnpa/ndiv)
-    npd = np.zeros((int(lnpa/b),2))
+    npd = np.zeros((int(lnpa/b),2))  #float64
     for i in range(int(lnpa/b)):
         c = npa[i*b:(i+1)*b]
         cmax = c.max()
@@ -70,6 +70,7 @@ def p_pick(npa,ndiv=100,thrddiv=10):
             npd[i,0] = i*b+cidx
             npd[i,1] = npa[i*b+cidx]
     npd = npd[npd[:,0]!=0]
+    npdd[:,0] = npdd[:,0].astype(int) #npdd[:,0] converted to integer as index
     max2 = npa.max()
     min2 = npa.min()
     #thrddiv=10

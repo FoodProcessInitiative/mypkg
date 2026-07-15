@@ -79,3 +79,4 @@ def p_pick(npa,ndiv=100,thrddiv=10):
     plt.scatter(npdd[:,0],npdd[:,1],color='red')
     plt.show()
     return npdd
+#

@@ -70,7 +70,6 @@ def p_pick(npa,ndiv=100,thrddiv=10):
             npd[i,0] = i*b+cidx
             npd[i,1] = npa[i*b+cidx]
     npd = npd[npd[:,0]!=0]
-    npd[:,0] = npd[:,0].astype(int) #npd[:,0] converted to integer as index
     max2 = npa.max()
     min2 = npa.min()
     #thrddiv=10
@@ -79,5 +78,7 @@ def p_pick(npa,ndiv=100,thrddiv=10):
     # show garph
     plt.plot(npa)
     plt.scatter(npdd[:,0],npdd[:,1],color='red')
+    plt.xlabel("index")
+    plt.ylabel("Counts")
     plt.show()
     return npdd

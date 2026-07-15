@@ -14,13 +14,13 @@ def plot_SP(np_WN, np1,title):
     plt.ylabel("Counts")
     #plt.grid(True)
     plt.show()
-def WNid(np_data,np_WN, w1=-4000,w2=4000):   #for numpy data
+
+def WNid(np_WN, w1=-4000,w2=4000):   #for numpy data
     #Get index of w1 and w2 rows at the edges of frequency region
-    tpl_a = np_data.shape  #tuple(WNチャネル数,datapoint数)
     w1id = 0
     w2id = 0
     flg = 0
-    for id in range(tpl_a[0]) :
+    for id in range(len(np_WN)) :
         #print(id)
         #if id==5:
         #    break

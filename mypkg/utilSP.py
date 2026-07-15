@@ -72,7 +72,7 @@ def p_pick(npa,ndiv=100,thrddiv=10):
     npd = npd[npd[:,0]!=0]
     max2 = npa.max()
     min2 = npa.min()
-    thrddiv=10
+    #thrddiv=10
     thrd2 = (max2-min2)/thrddiv + min2
     npdd = npd[npd[:,1]>thrd2]
     # show garph

@@ -12,3 +12,70 @@ def plot_SP(np_WN, np1, title):
     plt.xlabel("Wavenumvers ($cm^-$$^1$)")
     plt.ylabel("Counts")
     plt.show()
+
+def WNid(np_data,np_WN, w1=-4000,w2=4000):   #for numpy data
+    #Get index of w1 and w2 rows at the edges of frequency region
+    tpl_a = np_data.shape  #tuple(WNチャネル数,datapoint数)
+    w1id = 0
+    w2id = 0
+    flg = 0
+    for id in range(tpl_a[0]) :
+        #print(id)
+        #if id==5:
+        #    break
+        if int(np_WN[id])<w1:
+            w1id=id
+        if int(np_WN[id])>w2:
+            if flg == 0:
+                w2id = id
+                flg = 1
+        else:
+            w2id = id
+    if flg==0:
+        print('Range was ignored!')
+    return w1id,w2id
+
+def p_pick(npa,ndiv=100,thrddiv=10):
+    #ndiv=100
+    lnpa = len(npa)
+    b = int(lnpa/ndiv)
+    npd = np.zeros((int(lnpa/b),2))
+    for i in range(int(lnpa/b)):
+        c = npa[i*b:(i+1)*b]
+        cmax = c.max()
+        cidx = c.argmax()
+        if cidx==0 and i>0:
+            if npa[i*b+cidx-1]>npa[i*b+cidx]:    #単調減少
+                #print('nonP0',i*b,'cidx=',cidx)
+                a=1
+            else:
+                #print(i*b,cmax,i*b+cidx,)        #peak
+                npd[i,0] = i*b+cidx
+                npd[i,1] = npa[i*b+cidx]        
+        elif cidx==b-1 and lnpa>i*b+cidx+1:
+            if npa[i*b+cidx]<npa[i*b+cidx+1]:   #単調増加
+                #print('nonP',i*b,'cidx=',cidx)
+                a=1
+            else:
+                #print(i*b,cmax,i*b+cidx,)      #peak
+                npd[i,0] = i*b+cidx
+                npd[i,1] = npa[i*b+cidx]
+        else:
+          if cidx==0 and i==0:
+            #print('nonP0',i*b,'cidx=',cidx)
+            a=1
+          else:
+            #print(i*b,cmax,i*b+cidx,)         #peak
+            npd[i,0] = i*b+cidx
+            npd[i,1] = npa[i*b+cidx]
+    npd = npd[npd[:,0]!=0]
+    plt.plot(npa)
+    max2 = npa.max()
+    min2 = npa.min()
+    thrddiv=10
+    thrd2 = (max2-min2)/thrddiv + min2
+    npdd = npd[npd[:,1]>thrd2]
+    plt.scatter(npd[:,0],npd[:,1],color='blue')
+    plt.scatter(npdd[:,0],npdd[:,1],color='red')
+    plt.show()
+    return npdd

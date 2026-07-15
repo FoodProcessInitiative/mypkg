@@ -12,7 +12,6 @@ def plot_SP(np_WN, np1, title):
     plt.xlabel("Wavenumvers ($cm^-$$^1$)")
     plt.ylabel("Counts")
     plt.show()
-
 def WNid(np_data,np_WN, w1=-4000,w2=4000):   #for numpy data
     #Get index of w1 and w2 rows at the edges of frequency region
     tpl_a = np_data.shape  #tuple(WNチャネル数,datapoint数)

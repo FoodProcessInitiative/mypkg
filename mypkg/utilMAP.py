@@ -3,6 +3,17 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+def loadWN_maptxt(path):
+    f0 = open(path,'r',encoding='UTF-8')
+    datalist = f0.readlines()
+    #print(datalist[0])
+    f0.close()
+    la = datalist[0].strip().split('\t')  #最初の空白（ｘ、ｙ）を除き（stripし）、tabで区切る(split)
+    WN = []
+    for a in la:
+        WN.append(float(a))
+    print('number of wavenumber channels',len(WN))
+    return WN
 
 def loadSP_maptxt(path):
     df1 = pd.read_csv(path, sep=r'[,\t]', encoding='utf-8', engine='python') #Using r string literals for regular expressions

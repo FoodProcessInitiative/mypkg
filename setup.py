@@ -12,5 +12,5 @@ setup(
         'numpy>=1.20',
         'matplotlib>=3.3'
     ],
-    python_requires='>=3.7',
+    python_requires='>=3.1',
 )

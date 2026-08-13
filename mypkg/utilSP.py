@@ -81,4 +81,5 @@ def p_pick(npa,ndiv=100,thrddiv=10):
     plt.xlabel("index")
     plt.ylabel("Counts")
     plt.show()
-    return npdd
+    np_peaks = npdd
+    return np_peaks

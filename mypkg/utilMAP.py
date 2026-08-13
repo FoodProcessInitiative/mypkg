@@ -123,8 +123,8 @@ def im_extract(np_mapdata,x_dim, y_dim, fn, params):
   #  w2id = w1id
   #print(f"{'w1id,w2id':<25}: {w1id:15.0f}\t{w2id:15.0f}")
   #print(f"{'np_WN[w1id],np_WN[w2id]':<25}: {np_WN[w1id]:15.1f}\t{np_WN[w2id]:15.1f}")
-  #x_start, x_end = 6,20
-  #y_start, y_end = 7,13
+  #x_start, x_end = 6,20   #input x region from x_start to x_end
+  #y_start, y_end = 7,13   #input y region from y_start to x_end
   #print(f"{'x_start, x_end':<25}: {x_start:15.0f}\t{x_end:15.0f}")
   #print(f"{'y_start, y_end':<25}: {y_start:15.0f}\t{y_end:15.0f}")
   #params = []

@@ -115,8 +115,8 @@ def im_extract(np_mapdata,x_dim, y_dim, fn, params):
   #params[1]: x_start, x_end
   #params[2]: y_start, y_end
   #===== example code for preparing params
-  #===== specify the wavenumbers for the OH strech region 
-  #wn1,wn2 = 3000,3800   #input the same wavenumbers for spectral extraction.
+  #===== specify the wavenumbers for the OH strech region
+  #wn1,wn2 = 3000,3800   #input the wavenumbers for spectral extraction.
   #w1id,w2id = WNid(np_WN,wn1,wn2)
   #if wn1==wn2:
   #  w1id = int((w1id+w2id)/2)
@@ -140,10 +140,12 @@ def im_extract(np_mapdata,x_dim, y_dim, fn, params):
     npa = np_mapdata[w1id,:]  #intensity at a specified wavenumber指定波数の強度
   else:
     npa = np_mapdata[w1id:w2id,:].sum(axis=0)   #area intensity in a specified spectral region指定範囲波数の面積強度
-  
+
    # Display the base image
-  image = npa.reshape(y_dim, x_dim) 
-  plt.imshow(image, cmap='gray', aspect='equal')
+  image = npa.reshape(y_dim, x_dim)
+  # Set extent for the base image to align pixel boundaries from (0,0) to (x_dim, y_dim)
+  # The image will be plotted from x=0 to x=x_dim and y=y_dim to y=0.
+  plt.imshow(image, cmap='gray', aspect='equal', extent=[0, x_dim, y_dim, 0])
 
   # Define the region for image2
   # image2 = image[7:13,6:20] means:
@@ -153,12 +155,20 @@ def im_extract(np_mapdata,x_dim, y_dim, fn, params):
   y_start, y_end = params[2]
   image2 = image[y_start:y_end, x_start:x_end]
 
-  # Overlay image2 using extent to position it correctly
+  # Overlay image2 using extent to position it correctly, aligning with integer pixel boundaries
+  # The overlay will be plotted from x=x_start to x=x_end and y=y_end to y=y_start.
+  # Reverted x-coordinates adjustment to fix 1-pixel right shift.
   im_overlay = plt.imshow(image2, cmap='jet', aspect='equal', alpha=0.7,
                           extent=[x_start, x_end, y_end, y_start])
   plt.colorbar(im_overlay, label='intensity')
-  plt.xticks(range(0, x_dim, 5)) # Set x-axis ticks intervals
-  plt.yticks(range(0, y_dim, 5)) # Set y-axis ticks intervals
+  # Set x-axis ticks intervals to cover the full image range, including x_dim
+  x_ticks_values = list(range(0, x_dim, 5))
+  if x_dim not in x_ticks_values: x_ticks_values.append(x_dim)
+  plt.xticks(x_ticks_values)
+  # Set y-axis ticks intervals to cover the full image range, including y_dim
+  y_ticks_values = list(range(0, y_dim, 5))
+  if y_dim not in y_ticks_values: y_ticks_values.append(y_dim)
+  plt.yticks(y_ticks_values)
   plt.show()
   return image2
 

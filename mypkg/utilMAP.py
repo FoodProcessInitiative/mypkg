@@ -108,6 +108,56 @@ def map_imjet(np_mapdata,x_dim, y_dim, f):
     plt.show()
     return np_suma
 
+def im_extract(np_mapdata,x_dim, y_dim, fn, params):
+  #import matplotlib.pyplot as plt
+  #import numpy as np
+  #params[0]: np_WN(wavenumbers) index from wn1 to wn2.
+  #params[1]: x_start, x_end
+  #params[2]: y_start, y_end
+  #===== example code for preparing params
+  #===== specify the wavenumbers for the OH strech region 
+  #wn1,wn2 = 3000,3800   #input the same wavenumbers for spectral extraction.
+  #w1id,w2id = WNid(np_WN,wn1,wn2)
+  #if wn1==wn2:
+  #  w1id = int((w1id+w2id)/2)
+  #  w2id = w1id
+  #print(f"{'w1id,w2id':<25}: {w1id:15.0f}\t{w2id:15.0f}")
+  #print(f"{'np_WN[w1id],np_WN[w2id]':<25}: {np_WN[w1id]:15.1f}\t{np_WN[w2id]:15.1f}")
+  #params = []
+  #params.append((w1id,w2id)) #extraxt np_WN(wavenumbers) index from wn1 to wn2.
+  #params.append((6,20)) #extraxt x region from x_start to x_end
+  #params.append((7,13)) #extraxt y region from y_start to y_end
+  #print(params)
+  #======
+  w1id,w2id = params[0]
+  #w1id,w2id = WNid(np_WN,wn1,wn2)
+  #image with sum area
+  if w1id==w2id:
+    npa = np_mapdata[w1id,:]  #intensity at a specified wavenumber指定波数の強度
+  else:
+    npa = np_mapdata[w1id:w2id,:].sum(axis=0)   #area intensity in a specified spectral region指定範囲波数の面積強度
+  
+   # Display the base image
+  image = npa.reshape(y_dim, x_dim) 
+  plt.imshow(image, cmap='gray', aspect='equal')
+
+  # Define the region for image2
+  # image2 = image[7:13,6:20] means:
+  # y-axis from 7 (inclusive) to 13 (exclusive)
+  # x-axis from 6 (inclusive) to 20 (exclusive)
+  x_start, x_end = params[1]
+  y_start, y_end = params[2]
+  image2 = image[y_start:y_end, x_start:x_end]
+
+  # Overlay image2 using extent to position it correctly
+  im_overlay = plt.imshow(image2, cmap='jet', aspect='equal', alpha=0.7,
+                          extent=[x_start, x_end, y_end, y_start])
+  plt.colorbar(im_overlay, label='intensity')
+  plt.xticks(range(0, x_dim, 5)) # Set x-axis ticks intervals
+  plt.yticks(range(0, y_dim, 5)) # Set y-axis ticks intervals
+  plt.show()
+  return image2
+
 def np_SPs(np_mapdata,x_start,x_end,y_start,y_end,y_dim):
     #np_SPs;spectra in a specified spectral region of image2
     for i in range(x_start,x_end):

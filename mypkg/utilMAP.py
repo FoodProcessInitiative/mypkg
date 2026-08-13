@@ -123,10 +123,12 @@ def im_extract(np_mapdata,x_dim, y_dim, fn, params):
   #  w2id = w1id
   #print(f"{'w1id,w2id':<25}: {w1id:15.0f}\t{w2id:15.0f}")
   #print(f"{'np_WN[w1id],np_WN[w2id]':<25}: {np_WN[w1id]:15.1f}\t{np_WN[w2id]:15.1f}")
+  #x_start, x_end = 6,20
+  #y_start, y_end = 7,13
   #params = []
   #params.append((w1id,w2id)) #extraxt np_WN(wavenumbers) index from wn1 to wn2.
-  #params.append((6,20)) #extraxt x region from x_start to x_end
-  #params.append((7,13)) #extraxt y region from y_start to y_end
+  #params.append((x_start, x_end)) #extraxt x region from x_start to x_end
+  #params.append((y_start, y_end)) #extraxt y region from y_start to y_end
   #print(params)
   #======
   w1id,w2id = params[0]

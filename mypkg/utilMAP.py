@@ -14,13 +14,15 @@ def loadWN_maptxt(path):
         WN.append(float(a))
     print('number of wavenumber channels',len(WN))
     return WN
-
+    
 def loadSP_maptxt(path):
+    #modified on 2026/8/18 columns={'level_0': 'x'}->columns={'level_0': 'y'}
+    #columns={'level_1': 'y'}-> columns={'level_1': 'x'}
     df1 = pd.read_csv(path, sep=r'[,\t]', encoding='utf-8', engine='python') #Using r string literals for regular expressions
     # Indexを0列目に挿入し、インデックスをリセット
     df_reset = df1.reset_index()  # インデックスが「index」という名前の新しい列になる
-    df_reset.rename(columns={'level_0': 'x'}, inplace=True)  # 列名を変更
-    df_reset.rename(columns={'level_1': 'y'}, inplace=True)  # 列名を変更
+    df_reset.rename(columns={'level_0': 'y'}, inplace=True)  # 列名を変更 x,y逆を修正
+    df_reset.rename(columns={'level_1': 'x'}, inplace=True)  # 列名を変更　x,y逆を修正
     df11 = df_reset
     print('\n','>>> df11 >>>>')
     print(df11.head())

@@ -7,6 +7,7 @@ def CLSim(im_csR,im_csG,im_csB)
 def calc_lof_vaf(X, C, S)
 def calc_contribution(C, S)
 def summary_table(X, C, S)
+def Cimage(x_dim,y_dim,C,title)
 @author: Yasushi Nakata
 """
 import pandas as pd
@@ -124,3 +125,48 @@ def summary_table(X, C, S):
     print(f"VAF: {vaf:.3f} %")
     print("\nComponent Contributions:")
     print(df)
+
+def summary_table(X, C, S):
+    lof, vaf = calc_lof_vaf(X, C, S)
+    contrib = calc_contribution(C, S)
+
+    df = pd.DataFrame({
+        "Component": [f"Comp {i+1}" for i in range(len(contrib))],
+        "Contribution (%)": contrib * 100
+    })
+
+    print("=== MCR-ALS Summary ===")
+    print(f"LOF: {lof:.3f} %")
+    print(f"VAF: {vaf:.3f} %")
+    print("\nComponent Contributions:")
+    print(df)
+
+def Cimage(x_dim,y_dim,C,title):
+  # -----------------------------
+  # 1. 濃度プロファイル（C）のプロット
+  # -----------------------------
+  tplC = C.shape
+  n_components = tplC[1]
+  row = int(n_components/3.1)+1
+  col = 3
+  fig, axes = plt.subplots(row,col, tight_layout=True,figsize=(10, row*3))
+  plt.suptitle(title, fontsize=20)
+  l_sublbel=['(a)','(b)','(c)','(d)','(e)','(f)','(g)','(h)','(i)','(j)','(k)','(l)','(m)','(n)','(o)','(p)','(q)','(r)','(s)','(t)','(u)','(v)','(w)','(x)','(y)','(z)']
+  #jetでsumaイメージ再描画
+  for i in range(n_components):
+      im_comp = C[:, i].reshape(y_dim, x_dim)   #(Y,X)
+      #fig, ax = plt.subplots()
+      if row==1:
+          ax = axes[i%col]
+      else:
+          ax = axes[int(i/col), i%col]
+      im = ax.imshow(im_comp, cmap='jet')   #imshowはnumpy配列を画像表示するメソッド
+      #plt.colorbar(axes[0,i],label='score intensity')
+      fig.colorbar(im, ax=ax)
+      ax.set_title("comp "+str(i))
+      plt.subplots_adjust(top=0.85, hspace=0.5)
+      ax.text(-10, -8.0, l_sublbel[i], ha='left', va='top',fontsize=15)
+      ax.set_xticks(np.arange(0, x_dim, 10))   #, ['0', '10', '20', '30'])
+      ax.set_yticks(np.arange(0, y_dim, 10))   #, ['0', '10', '20', '30'])
+  #plt.tight_layout()
+  plt.show()

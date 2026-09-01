@@ -8,12 +8,14 @@ def calc_lof_vaf(X, C, S)
 def calc_contribution(C, S)
 def summary_table(X, C, S)
 def Cimage(x_dim,y_dim,C,title)
+def RGBim(im_csR,im_csG,im_csB)
 @author: Yasushi Nakata
 """
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from numpy.linalg import inv
+from matplotlib.colors import LinearSegmentedColormap
 
 def least_sq(sample_spectrum, components):
    """
@@ -170,3 +172,45 @@ def Cimage(x_dim,y_dim,C,title):
       ax.set_yticks(np.arange(0, y_dim, 10))   #, ['0', '10', '20', '30'])
   #plt.tight_layout()
   plt.show()
+
+def RGBim(im_csR,im_csG,im_csB):
+      #from matplotlib.colors import LinearSegmentedColormap
+      # カスタムカラーマップ定義
+      cmap_red   = LinearSegmentedColormap.from_list("black_red",   [(0, 0, 0), (1, 0, 0)])
+      cmap_green = LinearSegmentedColormap.from_list("black_green", [(0, 0, 0), (0, 1, 0)])
+      cmap_blue  = LinearSegmentedColormap.from_list("black_blue",  [(0, 0, 0), (0, 0, 1)])
+    
+      plt.figure(figsize=(15, 5))
+      plt.subplot(1, 3, 1)
+      plt.imshow(im_csR, cmap=cmap_red)
+      plt.title('R')
+      plt.colorbar(label='Intensity')
+      plt.axis('off')
+    
+      plt.subplot(1, 3, 2)
+      plt.imshow(im_csG, cmap=cmap_green)
+      plt.title('G')
+      plt.colorbar(label='Intensity')
+      plt.axis('off')
+    
+      plt.subplot(1, 3, 3)
+      plt.imshow(im_csB, cmap=cmap_blue)
+      plt.title('B')
+      plt.colorbar(label='Intensity')
+      plt.axis('off')
+    
+      plt.tight_layout()
+      plt.show()
+    
+      # Normalize each component to the range [0, 1] for proper RGB visualization
+      im_csR_norm = (im_csR - np.min(im_csR)) / (np.max(im_csR) - np.min(im_csR))
+      im_csG_norm = (im_csG - np.min(im_csG)) / (np.max(im_csG) - np.min(im_csG))
+      im_csB_norm = (im_csB - np.min(im_csB)) / (np.max(im_csB) - np.min(im_csB))
+    
+      # Stack the normalized components to create an RGB image
+      rgb_image = np.stack([im_csR_norm, im_csG_norm, im_csB_norm], axis=-1)
+      #rgb_image = np.stack([im_csR, im_csG, im_csB], axis=-1)
+      plt.imshow(rgb_image)
+      plt.title('Normalized RGB composite image')
+      #plt.axis('off')
+      plt.show()

@@ -1,11 +1,11 @@
 """
 Created on Sat Aug 29 10:26:10 2026
 Statistical analysis(CLS,PCA,MCR)
-def least_sq(sample_spectrum, components)
-def CLSscore(components,np_mapdata)
+def least_sq(sample_spectrum, components): return similarity
+def CLSscore(components,np_mapdata): return np_csR, np_csG, np_csB
 def CLSim(im_csR,im_csG,im_csB)
-def calc_lof_vaf(X, C, S)
-def calc_contribution(C, S)
+def calc_lof_vaf(X, C, S): return lof, vaf
+def calc_contribution(C, S): return contribution
 def summary_table(X, C, S)
 def Cimage(x_dim,y_dim,C,title)
 def RGBim(im_csR,im_csG,im_csB)
@@ -112,21 +112,6 @@ def calc_contribution(C, S):
     # 寄与率（正規化）
     contribution = comp_power / comp_power.sum()
     return contribution
-
-def summary_table(X, C, S):
-    lof, vaf = calc_lof_vaf(X, C, S)
-    contrib = calc_contribution(C, S)
-
-    df = pd.DataFrame({
-        "Component": [f"Comp {i+1}" for i in range(len(contrib))],
-        "Contribution (%)": contrib * 100
-    })
-
-    print("=== MCR-ALS Summary ===")
-    print(f"LOF: {lof:.3f} %")
-    print(f"VAF: {vaf:.3f} %")
-    print("\nComponent Contributions:")
-    print(df)
 
 def summary_table(X, C, S):
     lof, vaf = calc_lof_vaf(X, C, S)

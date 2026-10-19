@@ -9,7 +9,7 @@ setup(
     author_email='yasushi.nakata@omu.ac.jp',
     packages=find_packages(), # 'mypkg'フォルダを自動で見つける
     install_requires=[ # 依存関係があればここに記述
-        'numpy=1.26.4',
+        'numpy==1.26.4',
         'matplotlib>=3.3'
     ],
     python_requires='>=3.1',

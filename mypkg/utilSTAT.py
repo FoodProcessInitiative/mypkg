@@ -200,7 +200,7 @@ def RGBim(im_csR,im_csG,im_csB):
       #plt.axis('off')
       plt.show()
 
-def PCAim(score,n_components,x_dim,y_dim):
+def PCAim(score,n_components,x_dim,y_dim,fn):
   row = int((n_components-1)/3)+1
   col = 3
   fig, axes = plt.subplots(row,col, tight_layout=True,figsize=(10, 3*row))

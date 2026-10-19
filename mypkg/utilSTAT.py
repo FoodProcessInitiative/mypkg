@@ -199,3 +199,34 @@ def RGBim(im_csR,im_csG,im_csB):
       plt.title('Normalized RGB composite image')
       #plt.axis('off')
       plt.show()
+
+def PCAim(score,n_components,x_dim,y_dim):
+  row = int((n_components-1)/3)+1
+  col = 3
+  fig, axes = plt.subplots(row,col, tight_layout=True,figsize=(10, 3*row))
+  plt.suptitle(fn+' : '+'mean centering', fontsize=20)
+  l_sublbel=['(a)','(b)','(c)','(d)','(e)','(f)','(g)','(h)','(i)','(j)','(k)','(l)','(m)','(n)','(o)']
+  #jetでsumaイメージ再描画
+  for i in range(row*col):
+      if i>15:
+          break
+      if i>n_components-1:
+        break
+      im_comp = score[:, i].reshape(y_dim, x_dim)   #(Y,X)
+      #fig, ax = plt.subplots()
+      if row==1:
+          ax = axes[i]
+      else:
+        ax = axes[int(i/col), i%col]
+      im = ax.imshow(im_comp, cmap='jet')   #imshowはnumpy配列を画像表示するメソッド
+      #plt.colorbar(axes[0,i],label='score intensity')
+      fig.colorbar(im, ax=ax)
+      ax.set_title("PC"+str(i))
+      plt.subplots_adjust(top=0.85, hspace=0.5)
+      ax.text(-10, -10.0, l_sublbel[i], ha='left', va='top',fontsize=15)
+      #ax.set_xticks([0, 10, 20])  #(np.arange(0, 21, 10))
+      #ax.set_yticks([0, 10, 20])  #(np.arange(0, 21, 10))
+      ax.set_xticks(np.arange(0, x_dim, 10))
+      ax.set_yticks(np.arange(0, y_dim, 10))
+  #plt.tight_layout()
+  plt.show()

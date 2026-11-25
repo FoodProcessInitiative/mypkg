@@ -93,7 +93,7 @@ def df_to_numpy(mapdata,WN):
 def map_im(np_mapdata,x_dim, y_dim, f):
     #image with sum area
     np_suma = np_mapdata.sum(axis=0)   #各スペクトルの面積
-    im2 = np_suma.reshape(y_dim, x_dim)   #(Y,X)
+    im2 = np_suma.reshape(x_dim, y_dim)   #(X,Y)
     im = plt.imshow(im2, cmap='gray')   #imshowはnumpy配列を画像表示するメソッド
     plt.colorbar(im, label='Area intensity')
     plt.title(f)
@@ -103,7 +103,7 @@ def map_im(np_mapdata,x_dim, y_dim, f):
 def map_imjet(np_mapdata,x_dim, y_dim, f):
     #image with sum area
     np_suma = np_mapdata.sum(axis=0)   #各スペクトルの面積
-    im2 = np_suma.reshape(y_dim, x_dim)   #(Y,X)
+    im2 = np_suma.reshape(x_dim, y_dim)   #(X,Y)
     im = plt.imshow(im2, cmap='jet')   #imshowはnumpy配列を画像表示するメソッド
     plt.colorbar(im, label='Area intensity')
     plt.title(f)
@@ -144,7 +144,7 @@ def im_extract(np_mapdata,x_dim, y_dim, fn, params):
     npa = np_mapdata[w1id:w2id,:].sum(axis=0)   #area intensity in a specified spectral region指定範囲波数の面積強度
 
    # Display the base image
-  image = npa.reshape(y_dim, x_dim)
+  image = npa.reshape(x_dim, y_dim)
   # Set extent for the base image to align pixel boundaries from (0,0) to (x_dim, y_dim)
   # The image will be plotted from x=0 to x=x_dim and y=y_dim to y=0.
   plt.imshow(image, cmap='gray', aspect='equal', extent=[0, x_dim, y_dim, 0])
